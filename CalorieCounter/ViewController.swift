@@ -41,6 +41,7 @@ class ViewController: UIViewController {
         dropDown.optionIds = [1,23,54,22]
 //     The the Closure returns Selected Index and String
         dropDown.didSelect{(selectedText , index ,id) in
+            print("Selected String: \(selectedText) \n index: \(index)")
             self.dropDown.text = "Selected String: \(selectedText) \n index: \(index)"
         
     }
