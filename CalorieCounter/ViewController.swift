@@ -10,6 +10,8 @@ import iOSDropDown
 
 class ViewController: UIViewController {
     
+    var doublesizenumber:Double = 1
+    
     //IBOUTLETS
     @IBOutlet weak var backgroundImage: UIImageView!
    
@@ -33,9 +35,25 @@ class ViewController: UIViewController {
         listOfObjects()
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func stepperAction(_ sender: UIStepper) {
+        numberLabel.text = String(sender.value)
+        
+        
+//        let sizenumber = sizeNumber.text
+        
+//        var sizenumbers = sizeNumber.text
+        
+        let doublenumberlabel = Double(sender.value)
+//        doublesizenumber = Double(sizeNumber.text!)
+        
+        let mulsizenumber = (doublenumberlabel) * (doublesizenumber)
+        sizeNumber.text = "\(mulsizenumber)"
+        
+    }
+    
     func listOfObjects(){
-//     The list of array to display. Can be changed dynamically
-//    dropDown.optionArray = ["Option 1", "Option 2", "Option 3"]
+
         
         ///here I'm using the map function to get the meal names instead of using an another array. You can always change it back
         dropDown.optionArray = mealModelArr.map({
@@ -51,17 +69,14 @@ class ViewController: UIViewController {
             ///this is where I'm calling the method that modifies the UI
             self.modifyOnDropDownSelect(id: id)
             
-            
-//            print("Selected String: \(selectedText) \n index: \(index)")
-//            self.dropDown.text = "Selected String: \(selectedText) \n index: \(index)"
         
     }
     }
     
     var mealModelArr: [MealModel] = [
-        MealModel(meal: "Beer" , sizenumber: "356g", caloriesnumber: "154", portionsize: "can", backgroundImage: "Beer"),
-        MealModel(meal: "Champagne", sizenumber: "175ml", caloriesnumber: "133", portionsize: "Medium Glass", backgroundImage: "veggies"),
-        MealModel(meal: "Red Wine" , sizenumber: "175ml", caloriesnumber: "149", portionsize: "Small Glass", backgroundImage: "Beer")
+        MealModel(meal: "Beer" , sizenumber: 356, caloriesnumber: "154", portionsize: "can", backgroundImage: "Beer"),
+        MealModel(meal: "Champagne", sizenumber: 175, caloriesnumber: "133", portionsize: "Medium Glass", backgroundImage: "veggies"),
+        MealModel(meal: "Red Wine" , sizenumber: 175, caloriesnumber: "149", portionsize: "Small Glass", backgroundImage: "Beer")
     ]
     
 //    var mealArr = ["Beer", "Champage", "Red Wine" ]
@@ -74,7 +89,8 @@ class ViewController: UIViewController {
         
         ///modifying the UI on the main thread
         DispatchQueue.main.async { [self] in
-            sizeNumber.text = singleMealModel.sizenumber
+            sizeNumber.text = "\(singleMealModel.sizenumber)"
+            doublesizenumber = singleMealModel.sizenumber
             caloriesNumber.text = singleMealModel.caloriesnumber
             portionSize.text = singleMealModel.portionsize
             backgroundImage.image = UIImage(named: singleMealModel.backgroundImage)
